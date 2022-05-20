@@ -11,7 +11,7 @@ import (
 	"os"
 
 	"github.com/go-sql-driver/mysql"
-	"github.com/jamf/go-mysqldump"
+	"github.com/DevRockstarZ/go-mysqldump"
 )
 
 func main() {
