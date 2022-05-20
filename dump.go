@@ -409,6 +409,8 @@ func reflectColumnType(tp *sql.ColumnType) reflect.Type {
 		return reflect.TypeOf(sql.NullInt64{})
 	case "DOUBLE":
 		return reflect.TypeOf(sql.NullFloat64{})
+	case "TIMESTAMP":
+		return reflect.TypeOf(sql.NullTime{})
 	}
 
 	// unknown datatype
@@ -469,6 +471,12 @@ func (table *table) RowBuffer() *bytes.Buffer {
 		case *sql.NullFloat64:
 			if s.Valid {
 				fmt.Fprintf(&b, "%f", s.Float64)
+			} else {
+				b.WriteString(nullType)
+			}
+		case *sql.NullTime:
+			if s.Valid {
+				fmt.Fprintf(&b, s.Time.Format("2006-01-02 15:04:05"))
 			} else {
 				b.WriteString(nullType)
 			}
